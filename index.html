@@ -607,6 +607,9 @@ inlineToggle.addEventListener('click', function() {
 });
 </script>
      
+
+<b:if cond='data:blog.url == data:blog.homepageUrl'>
+
 <div class="n21s-c55iner">
 
   <!-- Featured Grid -->
@@ -683,12 +686,23 @@ inlineToggle.addEventListener('click', function() {
   line-height: 1.3em;
 }
 
-/* AD CARD */
+/* NORMAL AD (20th stays same) */
 .movie-ad{
   display:flex;
   align-items:center;
   justify-content:center;
   min-height:250px;
+}
+
+/* 🔥 FULL WIDTH AD (every 9) */
+.full-width-ad {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 10px 0 20px;
+}
+
+.full-width-ad ins {
+  width: 100% !important;
 }
 </style>
 
@@ -697,8 +711,6 @@ inlineToggle.addEventListener('click', function() {
 var allFeedEntries = [];
 var feedsLoaded = 0;
 var totalFeeds = 2;
-
-var isEmbedded = (window.self !== window.top);
 
 function renderMovieFeedRow(json) {
   if(json.feed && json.feed.entry){
@@ -735,7 +747,6 @@ function renderMovieCard(entry, containerId, index){
     var tempDiv = document.createElement('div');
     tempDiv.innerHTML = entry.content.$t;
 
-    // ================= 1. IMAGE WRAPPED IN LINK (YOUR MAIN CASE) =================
     var linkedImg = tempDiv.querySelector('a img');
 
     if(linkedImg){
@@ -743,7 +754,6 @@ function renderMovieCard(entry, containerId, index){
       linkUrl = linkedImg.closest('a').href;
     }
 
-    // ================= 2. DDR45 IN IMAGE TITLE =================
     if(!linkUrl){
       var imgWithTitle = tempDiv.querySelector('img[title]');
       if(imgWithTitle){
@@ -755,7 +765,6 @@ function renderMovieCard(entry, containerId, index){
       }
     }
 
-    // ================= 3. DDR45 INLINE =================
     if(!linkUrl){
       var d = entry.content.$t.match(/\[ddr45\](.*?)\[\/ddr45\/\]/i);
       if(d){
@@ -763,7 +772,6 @@ function renderMovieCard(entry, containerId, index){
       }
     }
 
-    // ================= 4. ANY IMAGE =================
     if(!imgUrl){
       var img = tempDiv.querySelector('img');
       if(img){
@@ -772,7 +780,6 @@ function renderMovieCard(entry, containerId, index){
     }
   }
 
-  // FALLBACK IMAGE
   if(!imgUrl && entry.media$thumbnail){
     imgUrl = entry.media$thumbnail.url;
   }
@@ -781,12 +788,10 @@ function renderMovieCard(entry, containerId, index){
     imgUrl = 'https://via.placeholder.com/300x450?text=No+Image';
   }
 
-  // FALLBACK LINK
   if(!linkUrl){
     linkUrl = (entry.link || []).find(l => l.rel === 'alternate')?.href || '#';
   }
 
-  // CLEAN IMAGE QUALITY
   imgUrl = imgUrl.replace(/\/s[0-9]+(-c)?\//, '/s1600/');
 
   var card = document.createElement('div');
@@ -804,7 +809,26 @@ function renderMovieCard(entry, containerId, index){
 
   container.appendChild(card);
 
-  // ADS EVERY 20 ITEMS
+  /* 🔥 FULL WIDTH AD EVERY 9 */
+  if ((index + 1) % 9 === 0) {
+
+    var fullAd = document.createElement('div');
+    fullAd.className = 'full-width-ad';
+
+    fullAd.innerHTML = `
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-2269884583846743"
+           data-ad-slot="2906167922"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    `;
+
+    container.appendChild(fullAd);
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  }
+
+  /* ⚡ EXISTING AD EVERY 20 (UNCHANGED) */
   if ((index + 1) % 20 === 0) {
 
     var adCard = document.createElement('div');
@@ -826,7 +850,7 @@ function renderMovieCard(entry, containerId, index){
 </script>
 
 <!--===================== ADSENSE =====================-->
-<script async="async"
+<script async
 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
 crossorigin="anonymous"></script>
 
@@ -835,7 +859,7 @@ crossorigin="anonymous"></script>
 <script src="https://www.marketing2advertising.com/feeds/pages/default?alt=json-in-script&max-results=150&callback=renderMovieFeedRow"></script>
 
 </b:if>
-
+     
 </section>
 
   
