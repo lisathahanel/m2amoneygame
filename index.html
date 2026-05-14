@@ -28,12 +28,6 @@ body {
   line-height: 1.7;
   transition: background 0.3s, color 0.3s;
 }
-
- /* Hide instantly if inside iframe */
-html:has(body iframe), 
-body:has(iframe) #emb99d-footer {
-  display: none !important;
-}
      
 /* MENU */
 .menu-bar {
@@ -584,68 +578,52 @@ document.body.appendChild(s2);
 </script>
 
 
-<!-- ===================== FOOTER ===================== -->
-  <div id='emb99d-footer' style='background:#111; text-align:center; padding:10px 0; font-family:Raleway, Arial, sans-serif;'>
+  <!-- ===================== FOOTER ===================== -->
+<div id="emb99d-footer" style="background:#111; text-align:center; padding:10px 0; font-family:Raleway, Arial, sans-serif;">
 
-    <a href='/' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Home</a>
-    <span style='color:#fff;'>|</span>
-    
-    <a href='https://www.marketing2advertising.com/p/contact-us.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;'>Contact</a>
-    <span style='color:#fff;'>|</span>
-    
-    <a href='https://www.marketing2advertising.com/p/privacy-policy.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Privacy</a>
-    <span style='color:#fff;'>|</span>
-    
-    <a href='https://www.marketing2advertising.com/p/affiliate-marketing-and-adsense.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Disclosure</a>
-    <span style='color:#fff;'>|</span>
-    
-    <a href='https://www.marketing2advertising.com/p/terms-and-conditions.html' rel='noopener noreferrer' style='color:#04ff00; margin:0 6px; text-decoration:none;' target='_blank'>Terms</a>
+  <a href="/" rel="noopener noreferrer" style="color:#04ff00; margin:0 6px; text-decoration:none;">Home</a>
+  <span style="color:#fff;">|</span>
   
-    <p style='color:#aaa; font-size:14px; margin:10px 0 0;'>
-      &#169; Marketing2Advertising. All rights reserved.
-    </p>
+  <a href="https://www.marketing2advertising.com/p/contact-us.html" rel="noopener noreferrer" style="color:#04ff00; margin:0 6px; text-decoration:none;">Contact</a>
+  <span style="color:#fff;">|</span>
+  
+  <a href="https://www.marketing2advertising.com/p/privacy-policy.html" rel="noopener noreferrer" style="color:#04ff00; margin:0 6px; text-decoration:none;" target="_blank">Privacy</a>
+  <span style="color:#fff;">|</span>
+  
+  <a href="https://www.marketing2advertising.com/p/affiliate-marketing-and-adsense.html" rel="noopener noreferrer" style="color:#04ff00; margin:0 6px; text-decoration:none;" target="_blank">Disclosure</a>
+  <span style="color:#fff;">|</span>
+  
+  <a href="https://www.marketing2advertising.com/p/terms-and-conditions.html" rel="noopener noreferrer" style="color:#04ff00; margin:0 6px; text-decoration:none;" target="_blank">Terms</a>
+
+  <p style="color:#aaa; font-size:14px; margin:10px 0 0;">
+    &#169; Marketing2Advertising. All rights reserved.
+  </p>
 
 </div>
 
+<!-- ===================== EMBED DETECTION (FOOTER ONLY) ===================== -->
 <script>
 (function () {
-  function hideIfEmbedded() {
-    var isEmbedded = false;
-
+  function hideFooterIfEmbedded() {
     try {
-      // Standard iframe check
       if (window.self !== window.top) {
-        isEmbedded = true;
+        var footer = document.getElementById("emb99d-footer");
+        if (footer) footer.style.display = "none";
       }
-
-      // Extra check: if parent is different origin (safer fallback)
-      if (document.referrer && document.referrer.indexOf(location.hostname) === -1) {
-        isEmbedded = true;
-      }
-
     } catch (e) {
-      // If access is blocked → definitely inside iframe
-      isEmbedded = true;
-    }
-
-    if (isEmbedded) {
+      // Cross-origin iframe = still embedded
       var footer = document.getElementById("emb99d-footer");
       if (footer) footer.style.display = "none";
-
-      var other = document.getElementById("e66d-hide");
-      if (other) other.style.display = "none";
     }
   }
 
   // Run immediately
-  hideIfEmbedded();
+  hideFooterIfEmbedded();
 
-  // Also run after load (some embeds delay DOM)
-  window.addEventListener("load", hideIfEmbedded);
+  // Backup after full load
+  window.addEventListener("load", hideFooterIfEmbedded);
 })();
 </script>
-    
-      </div>
 
 <!-- ===================== JAVASCRIPT ===================== -->
 <script>
