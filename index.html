@@ -29,6 +29,12 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
+ /* Hide instantly if inside iframe */
+html:has(body iframe), 
+body:has(iframe) #emb99d-footer {
+  display: none !important;
+}
+     
 /* MENU */
 .menu-bar {
   position: sticky;
@@ -602,40 +608,44 @@ document.body.appendChild(s2);
 </div>
 
 <script>
-(function() {
-  try {
-    if (window.self !== window.top) {
-      var el = document.getElementById(&quot;emb99d-footer&quot;);
-      if (el) el.style.display = &quot;none&quot;;
-    }
-  } catch (e) {
-    // If cross-origin iframe blocks access, still hide it
-    var el = document.getElementById(&quot;emb99d-footer&quot;);
-    if (el) el.style.display = &quot;none&quot;;
-  }
-})();
-</script>
-  
-<div class='mobile-only-bar'/>
-  </div>
-    
-      <script>
-(function() {
-  try {
-    // Detect if page is inside iframe
-    if (window.self !== window.top) {
-      var el = document.getElementById(&quot;e66d-hide&quot;);
-      if (el) el.style.display = &quot;none&quot;;
-    }
-  } catch (e) {
-    // If cross-origin iframe, still hide
-    var el = document.getElementById(&quot;e66d-hide&quot;);
-    if (el) el.style.display = &quot;none&quot;;
-  }
-})();
-</script>
-    
+(function () {
+  function hideIfEmbedded() {
+    var isEmbedded = false;
 
+    try {
+      // Standard iframe check
+      if (window.self !== window.top) {
+        isEmbedded = true;
+      }
+
+      // Extra check: if parent is different origin (safer fallback)
+      if (document.referrer && document.referrer.indexOf(location.hostname) === -1) {
+        isEmbedded = true;
+      }
+
+    } catch (e) {
+      // If access is blocked → definitely inside iframe
+      isEmbedded = true;
+    }
+
+    if (isEmbedded) {
+      var footer = document.getElementById("emb99d-footer");
+      if (footer) footer.style.display = "none";
+
+      var other = document.getElementById("e66d-hide");
+      if (other) other.style.display = "none";
+    }
+  }
+
+  // Run immediately
+  hideIfEmbedded();
+
+  // Also run after load (some embeds delay DOM)
+  window.addEventListener("load", hideIfEmbedded);
+})();
+</script>
+    
+      </div>
 
 <!-- ===================== JAVASCRIPT ===================== -->
 <script>
