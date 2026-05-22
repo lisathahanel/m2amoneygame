@@ -694,7 +694,7 @@ inlineToggle.addEventListener('click', function() {
   min-height:250px;
 }
 
-/* 🔥 FULL WIDTH AD (every 9) */
+/* 🔥 FULL WIDTH AD (every 7) */
 .full-width-ad {
   grid-column: 1 / -1;
   width: 100%;
@@ -809,8 +809,8 @@ function renderMovieCard(entry, containerId, index){
 
   container.appendChild(card);
 
-  /* 🔥 FULL WIDTH AD EVERY 9 */
-  if ((index + 1) % 9 === 0) {
+  /* 🔥 FULL WIDTH AD EVERY 7 */
+  if ((index + 1) % 7 === 0) {
 
     var fullAd = document.createElement('div');
     fullAd.className = 'full-width-ad';
@@ -854,8 +854,8 @@ src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pu
 crossorigin="anonymous"></script>
 
 <!--===================== FEEDS =====================-->
-<script src="https://www.marketing2advertising.com/feeds/posts/default?alt=json-in-script&max-results=150&callback=renderMovieFeedRow"></script>
-<script src="https://www.marketing2advertising.com/feeds/pages/default?alt=json-in-script&max-results=150&callback=renderMovieFeedRow"></script>
+<script src="https://www.marketing2advertising.com/feeds/posts/default?alt=json-in-script&max-results=10&callback=renderMovieFeedRow"></script>
+<script src="https://www.marketing2advertising.com/feeds/pages/default?alt=json-in-script&max-results=2&callback=renderMovieFeedRow"></script>
 
 </b:if>
 
