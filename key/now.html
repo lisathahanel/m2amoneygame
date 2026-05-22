@@ -326,75 +326,7 @@ body.light-mode .movie-title { background: #007700; color: #fff; }
 
 <!-- ===================== BLOG POST ===================== -->
 
-<!-- INLINE COLLAPSIBLE HTML -->
-<div class="inline-anchor">
-  <div class="inline-toggle">▲ AD</div>
-  <div class="inline-content">
-    <!-- YOUR FULL HTML GOES HERE -->
-    <div id="my-full-html">
 
-         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2269884583846743"
-     crossorigin="anonymous"></script>
-<!-- Vertical New -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2269884583846743"
-     data-ad-slot="2906167922"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-         
-  </div>
-</div>
-
-<style>
-.inline-anchor {
-  width: 100%;
-  max-width: 1200px;
-  margin: 20px auto;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  font-family: sans-serif;
-  transition: all 0.3s ease;
-}
-
-.inline-toggle {
-  background: #f1f1f1;
-  font-size: 14px;
-  color: #333;
-  cursor: pointer;
-  padding: 6px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-
-.inline-content {
-  height: 500px; /* fixed height */
-  overflow: hidden; /* no scroll */
-  transition: all 0.3s ease;
-}
-</style>
-
-<script>
-const inlineToggle = document.querySelector('.inline-toggle');
-const inlineContent = document.querySelector('.inline-content');
-
-let hiddenInline = false;
-
-inlineToggle.addEventListener('click', function() {
-  if (!hiddenInline) {
-    inlineContent.style.display = 'none';
-    inlineToggle.innerHTML = '▼ AD';
-    hiddenInline = true;
-  } else {
-    inlineContent.style.display = 'block';
-    inlineToggle.innerHTML = '▲ AD';
-    hiddenInline = false;
-  }
-});
-</script>
      
 
 <b:if cond='data:blog.url == data:blog.homepageUrl'>
